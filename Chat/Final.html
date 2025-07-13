@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <title>کافه‌چت </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>کافه قهوه</title>
+        <link rel="stylesheet" href="/css/style.css" />
+        <!-- فونت -->
+        <link rel="stylesheet" href="/css/all.css" />
+         <!-- آیگون در مرورگر -->
+<link rel="icon" href="/img/—Pngtree—3d isolated render of a_20787224.png" type="image/x-icon" />
+    <style>
+@media (max-width: 768px) {
+  header {
+    font-size: 1.2rem;
+    padding: 0.8rem;
+  }
+
+  #usernameDisplay {
+    top: 0.6rem;
+    right: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .chat-box {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0.5rem;
+    padding-bottom: 110px;
+  }
+
+  .message, .reply {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+
+  .message-footer {
+    font-size: 0.85rem;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .input-area {
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+  }
+
+  .input-area input,
+  .input-area textarea {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .input-area button {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  #login input,
+  #login select,
+  #login button {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  #login {
+    padding: 1rem;
+  }
+
+  .reply-box {
+    font-size: 0.85rem;
+  }
+
+  .icon.delete {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #usernameDisplay {
+    font-size: 0.85rem;
+    max-width: 100%;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    position: static !important;
+    color: var(--primary);
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  header {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+  }
+}
+
+      /*  کد بالا موبایل */
+        #chat-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #chat-page header {
+            flex-shrink: 0;
+        }
+
+        #chat-page .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* جلوگیری از اسکرول اضافه */
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            padding-bottom: 140px;
+            /* جا برای input-area */
+        }
+
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--bg);
+            padding: 10px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        #main {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #main header {
+            flex-shrink: 0;
+        }
+
+        #main .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        #freeMessages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            padding-bottom: 140px;
+            /* جا برای input-area */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.fade-in {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #main .container {
+            overflow-y: auto;
+            /* ❌ حذفش کن چون اسکرول رو دوباره می‌سازه */
+        }
+
+        #chat-page .container {
+            overflow-y: auto;
+            /* ← اینو بردار چون پیام‌ها باید اسکرول بشن نه container */
+        }
+
+
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
+
+        :root {
+            --bg: #2e1f1a;
+            --card: #3e2a24;
+            --light: #fff5eb;
+            --primary: #c7a17a;
+            --accent: #a9745a;
+        }
+
+        #freeMessages {
+            overflow-y: auto;
+            max-height: 400px;
+            /* یا هر مقداری که تو داری */
+        }
+
+        #messages {
+            max-height: 600px;
+            /* افزایش ارتفاع پیام‌ها */
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            /* حذف اسکرول دوم روی body */
+        }
+
+        #chat-page {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chat-page .container {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 130px;
+            /* فضایی برای input-area */
+        }
+
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--bg-dark);
+            padding: 10px 0;
+            z-index: 10;
+        }
+
+
+        body {
+            background-color: var(--bg);
+            color: var(--light);
+            direction: rtl;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: var(--card);
+            padding: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+        }
+
+        #usernameDisplay {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .top-boxes {
+            background-color: var(--bg);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            padding-bottom: 0.5rem;
+        }
+
+        .chat-box {
+            background-color: var(--card);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .chat-box:hover {
+            background-color: #5c3e33;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            height: calc(100vh - 130px);
+            overflow-y: auto;
+            padding: 1rem;
+            padding-bottom: 120px;
+        }
+
+        #login {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+            z-index: 20;
+        }
+
+        #login input,
+        #login select {
+            width: 280px;
+            padding: 0.75rem;
+            border-radius: 10px;
+            border: none;
+            background-color: var(--card);
+            color: white;
+            font-size: 1rem;
+            direction: rtl;
+            text-align: right;
+            z-index: 10;
+        }
+
+        #login select {
+            appearance: none;
+            z-index: 11;
+            position: relative;
+        }
+
+        #login button {
+            background-color: var(--primary);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .message {
+            background-color: var(--card);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .message-footer {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .icon {
+            cursor: pointer;
+            color: var(--primary);
+            user-select: none;
+        }
+
+        .icon.delete {
+            color: #e55d5d;
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .replies {
+            margin-top: 0.5rem;
+            padding-right: 1rem;
+        }
+
+        .reply {
+            background-color: #4c322d;
+            padding: 0.75rem;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .reply .icon.delete {
+            position: absolute;
+            top: 5px;
+            left: 8px;
+            font-size: 1rem;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--bg);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .input-area input,
+        .input-area textarea {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: none;
+            background-color: #412d27;
+            color: white;
+        }
+
+        .input-area button {
+            background-color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .reply-box {
+            margin-top: 0.5rem;
+            background-color: #5a3c34;
+            padding: 0.5rem;
+            border-radius: 10px;
+            cursor: default;
+        }
+
+        .file-upload {
+            margin-top: 10px;
+        }
+
+        #main .container,
+        #chat-page .container {
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    <!-- ☕ 🔐 Login -->
+    <div id="login">
+        <h2>ورود به کافه‌چت </h2>
+        <input type="text" id="phone" placeholder="شماره موبایل">
+        <button onclick="requestCode()">ارسال کد تأیید</button>
+
+        <div id="codeSection" style="display:none; flex-direction: column; gap: 10px;">
+            <input type="text" id="code" placeholder="کد تأیید">
+            <button onclick="verifyCode()">تأیید</button>
+        </div>
+
+        <div id="nameSection" style="display:none; flex-direction: column; gap: 10px;">
+            <input type="text" id="name" placeholder="نام شما">
+            <select id="city">
+                <option value="">انتخاب شهر</option>
+                <option>تهران</option>
+                <option>گیلان</option>
+                <option>آذربایجان شرقی</option>
+                <option>خوزستان</option>
+                <option>فارس</option>
+                <option>اصفهان</option>
+                <option>خراسان رضوی</option>
+                <option>قزوین</option>
+                <option>سمنان</option>
+                <option>قم</option>
+                <option>مرکزی</option>
+                <option>زنجان</option>
+                <option>مازندران</option>
+                <option>گلستان</option>
+                <option>اردبیل</option>
+                <option>آذربایجان غربی</option>
+                <option>همدان</option>
+                <option>کردستان</option>
+                <option>کرمانشاه</option>
+                <option>لرستان</option>
+                <option>بوشهر</option>
+                <option>کرمان</option>
+                <option>هرمزگان</option>
+                <option>چهارمحال و بختیاری</option>
+                <option>یزد</option>
+                <option>سیستان و بلوچستان</option>
+                <option>ایلام</option>
+                <option>کهگلویه و بویراحمد</option>
+                <option>خراسان شمالی</option>
+                <option>خراسان جنوبی</option>
+                <option>البرز</option>
+            </select>
+            <button onclick="finishLogin()">ورود</button>
+        </div>
+    </div>
+
+    <!-- 📃 Main -->
+    <div id="main" style="display:none;">
+        <header>
+            کافه‌چت - گفت‌وگوی آزاد
+            <span id="usernameDisplay"></span>
+            <h1>
+                    <a class="logo" href="/index.html">
+                        <span class="fa fa-coffee"></span> کافه قهوه
+                    </a>
+                </h1>
+        </header>
+        <div class="container">
+            <div class="top-boxes">
+                <div class="chat-box" onclick="openChat('بهترین کافه کجاست؟')">بهترین کافه کجاست؟</div>
+                <div class="chat-box" onclick="openChat('چجوریه؟')">چجوریه؟</div>
+                <div class="chat-box" onclick="openChat('استخدام')">استخدام</div>
+                <hr style="margin:1rem 0; border-color: var(--primary);">
+            </div>
+            <div id="freeMessages"></div>
+            <div id="freeReplyBox" class="reply-box" style="display:none;"></div>
+            <div class="input-area">
+                <input type="text" id="freeMsgInput" placeholder="گفت‌وگو آزاد...">
+                <button onclick="sendFreeMessage()">ارسال</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 💬 Chat Page -->
+    <div id="chat-page" style="display:none;">
+        <header>
+            <span id="chat-title" style="font-size: 1.2rem;">...</span>
+            <span class="icon" onclick="goBack()"
+                style="position: absolute; left: 1rem; top: 1rem; font-size: 1.2rem;">🔙 بازگشت</span>
+        </header>
+        <div class="container">
+            <div id="messages"></div>
+            <div id="replyBox" class="reply-box" style="display:none;"></div>
+            <div class="input-area">
+                <input type="text" id="msgInput" placeholder="پیام خود را بنویسید...">
+                <input type="file" id="fileInput" style="display:none;">
+                <button onclick="sendMessage()">ارسال</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = {};
+        let selectedTopic = '';
+        let messages = [];
+        let freeMessages = [];
+        let replyingTo = null;
+        let replyingToFree = null;
+
+        function requestCode() {
+            const phone = document.getElementById('phone').value;
+            if (!phone.match(/^09\d{9}$/)) {
+                alert('شماره موبایل معتبر نیست');
+                return;
+            }
+            alert('کد فرضی ارسال شد: 1234');
+            document.getElementById('codeSection').style.display = 'flex';
+        }
+
+        function verifyCode() {
+            const code = document.getElementById('code').value;
+            if (code !== '1234') {
+                alert('کد اشتباه است');
+                return;
+            }
+            document.getElementById('nameSection').style.display = 'flex';
+        }
+
+        function finishLogin() {
+            const name = document.getElementById('name').value;
+            const city = document.getElementById('city').value;
+            if (!name || !city) {
+                alert('نام و شهر الزامی است');
+                return;
+            }
+            currentUser.name = name;
+            currentUser.city = city;
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('main').style.display = 'block';
+            document.getElementById('usernameDisplay').innerText = `${name} (${city})`;
+            loadFreeMessages();
+            renderFreeMessages();
+        }
+
+        function openChat(topic) {
+            selectedTopic = topic;
+            loadMessages();
+            document.getElementById('main').style.display = 'none';
+            document.getElementById('chat-page').style.display = 'block';
+            document.getElementById('chat-title').innerText = topic;
+
+            // فقط در استخدام input فایل نمایش داده شود
+            document.getElementById('fileInput').style.display = (topic === 'استخدام') ? 'block' : 'none';
+
+            renderMessages();
+        }
+
+        function goBack() {
+            document.getElementById('chat-page').style.display = 'none';
+            document.getElementById('main').style.display = 'block';
+            selectedTopic = '';
+            replyingTo = null;
+            document.getElementById('replyBox').style.display = 'none';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            // فقط در استخدام اجازه ارسال فایل داده شود
+            if (file && selectedTopic !== 'استخدام') {
+                alert('ارسال فایل فقط در موضوع استخدام مجاز است.');
+                return;
+            }
+
+            if (!text && !file) return;
+
+            const msg = {
+                user: `${currentUser.name} (${currentUser.city})`,
+                text,
+                likes: 0,
+                replies: [],
+                fileName: file ? file.name : null
+            };
+
+            if (replyingTo !== null) {
+                messages[replyingTo].replies.push(msg);
+                replyingTo = null;
+                document.getElementById('replyBox').style.display = 'none';
+            } else {
+                messages.push(msg);
+            }
+
+            input.value = '';
+            fileInput.value = '';
+            saveMessages();
+            renderMessages();
+
+            // اسکرول خودکار به پایین
+            const container = document.getElementById('messages');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function saveMessages() {
+            if (selectedTopic) {
+                localStorage.setItem('chatMessages_' + selectedTopic, JSON.stringify(messages));
+            }
+        }
+
+        function loadMessages() {
+            if (selectedTopic) {
+                const saved = localStorage.getItem('chatMessages_' + selectedTopic);
+                messages = saved ? JSON.parse(saved) : [];
+            }
+        }
+
+        function renderMessages() {
+            const container = document.getElementById('messages');
+            container.innerHTML = '';
+
+            messages.forEach((msg, idx) => {
+                const div = document.createElement('div');
+                div.className = 'message';
+
+                // در پاسخ‌ها هم اجازه ارسال فایل فقط در استخدام باشه
+                let repliesHTML = msg.replies.map((r, ridx) => `
+        <div class="reply">
+          <strong>${r.user}:</strong> ${r.text} ${r.fileName ? `<br><small>فایل: ${r.fileName}</small>` : ''}
+          <span class="icon delete" onclick="deleteReply(${idx}, ${ridx})">🗑️</span>
+        </div>
+      `).join('');
+
+                div.innerHTML = `
+        <strong>${msg.user}</strong>: ${msg.text} ${msg.fileName ? `<br><small>فایل: ${msg.fileName}</small>` : ''}
+        <span class="icon delete" onclick="deleteMessage(${idx})">🗑️</span>
+        <div class="message-footer">
+          <span class="icon" onclick="likeMessage(${idx})">❤️ ${msg.likes}</span>
+          <span class="icon" onclick="replyTo(${idx})">💬 پاسخ</span>
+        </div>
+        <div class="replies">${repliesHTML}</div>
+      `;
+
+                container.appendChild(div);
+
+
+            });
+
+            // اسکرول خودکار به پایین بعد رندر
+            setTimeout(() => {
+                container.scrollTop = container.scrollHeight;
+            }, 0);
+        }
+
+        function deleteMessage(idx) {
+            if (confirm('حذف پیام؟')) {
+                messages.splice(idx, 1);
+                saveMessages();
+                renderMessages();
+            }
+        }
+
+        function deleteReply(msgIdx, replyIdx) {
+            if (confirm('حذف پاسخ؟')) {
+                messages[msgIdx].replies.splice(replyIdx, 1);
+                saveMessages();
+                renderMessages();
+            }
+        }
+
+        function likeMessage(idx) {
+            messages[idx].likes++;
+            saveMessages();
+            renderMessages();
+        }
+
+        function replyTo(idx) {
+            replyingTo = idx;
+            document.getElementById('replyBox').innerText = `پاسخ به ${messages[idx].user}`;
+            document.getElementById('replyBox').style.display = 'block';
+        }
+
+        // پیام آزاد (صفحه اصلی) و بهترین کافه، همه در freeMessages مدیریت میشوند
+        function sendFreeMessage() {
+            const input = document.getElementById('freeMsgInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const msg = {
+                user: `${currentUser.name} (${currentUser.city})`,
+                text,
+                likes: 0,
+                replies: []
+            };
+
+            if (replyingToFree !== null) {
+                freeMessages[replyingToFree].replies.push(msg);
+                replyingToFree = null;
+                document.getElementById('freeReplyBox').style.display = 'none';
+            } else {
+                freeMessages.push(msg);
+            }
+
+            input.value = '';
+            saveFreeMessages();
+            renderFreeMessages();
+
+        }
+
+        function saveFreeMessages() {
+            localStorage.setItem('freeMessages', JSON.stringify(freeMessages));
+        }
+
+        function loadFreeMessages() {
+            const saved = localStorage.getItem('freeMessages');
+            freeMessages = saved ? JSON.parse(saved) : [];
+        }
+
+
+
+
+        function renderFreeMessages() {
+            const container = document.getElementById('freeMessages');
+
+            container.innerHTML = '';
+            freeMessages.forEach((msg, idx) => {
+                const div = document.createElement('div');
+                div.className = 'message';
+
+                let repliesHTML = msg.replies.map((r, ridx) => `
+      <div class="reply">
+        <strong>${r.user}:</strong> ${r.text}
+        <span class="icon delete" onclick="deleteFreeReply(${idx}, ${ridx})">🗑️</span>
+      </div>
+    `).join('');
+
+                div.innerHTML = `
+      <strong>${msg.user}</strong>: ${msg.text}
+      <span class="icon delete" onclick="deleteFreeMessage(${idx})">🗑️</span>
+      <div class="message-footer">
+        <span class="icon" onclick="likeFreeMessage(${idx})">❤️ ${msg.likes}</span>
+        <span class="icon" onclick="replyToFree(${idx})">💬 پاسخ</span>
+      </div>
+      <div class="replies">${repliesHTML}</div>
+    `;
+                container.appendChild(div);
+            });
+
+            // ✅ اسکرول خودکار به پایین، بعد از رندر
+            //   setTimeout(() => {
+            //     container.scrollTop = container.scrollHeight;
+            //   }, 0);
+
+            setTimeout(() => {
+                container.scrollTo({
+                    top: container.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 0);
+
+        }
+
+
+        function deleteFreeMessage(idx) {
+            if (confirm('حذف پیام آزاد؟')) {
+                freeMessages.splice(idx, 1);
+                saveFreeMessages();
+                renderFreeMessages();
+            }
+        }
+
+        function deleteFreeReply(msgIdx, replyIdx) {
+            if (confirm('حذف پاسخ آزاد؟')) {
+                freeMessages[msgIdx].replies.splice(replyIdx, 1);
+                saveFreeMessages();
+                renderFreeMessages();
+            }
+        }
+
+        function likeFreeMessage(idx) {
+            freeMessages[idx].likes++;
+            saveFreeMessages();
+            renderFreeMessages();
+        }
+
+        function replyToFree(idx) {
+            replyingToFree = idx;
+            document.getElementById('freeReplyBox').innerText = `پاسخ به ${freeMessages[idx].user}`;
+            document.getElementById('freeReplyBox').style.display = 'block';
+        }
+
+        function deleteFreeReply(msgIdx, replyIdx) {
+            if (confirm('حذف پاسخ آزاد؟')) {
+                freeMessages[msgIdx].replies.splice(replyIdx, 1);
+                saveFreeMessages();
+                renderFreeMessages();
+            }
+        }
+    </script>
+
+</body>
+
+</html>

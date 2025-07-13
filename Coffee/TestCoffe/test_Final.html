@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+ <!-- آیگون در مرورگر -->
+<link rel="icon" href="/img/—Pngtree—3d isolated render of a_20787224.png" type="image/x-icon" />
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>تست مشاوره قهوه حرفه‌ای</title>
+<style>
+  /*فونت فارسی وزیر) */
+  @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css');
+
+  body {
+    font-family: 'Vazir', Tahoma, sans-serif;
+    background: linear-gradient(120deg, #4b3b2b, #d7ccc8);
+    color: #3e2723;
+    margin: 0;
+    padding: 20px 15px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    margin-bottom: 40px;
+    font-weight: 900;
+    font-size: 2.4rem;
+    text-align: center;
+    color: #f5f0e6;
+    text-shadow: 0 2px 5px #3e2723a0;
+  }
+  
+
+
+#result {
+  background: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+}
+
+/* فقط این بخش مستطیلی باشه */
+.result-box {
+  background: #fff8ed;
+  border-radius: 16px;
+  padding: 30px;
+  margin: 20px auto;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  max-width: 600px;
+  text-align: center;
+}
+
+.result-box img {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+.result-box button {
+  background: #6f4e37;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.result-box button:hover {
+  background: #563927;
+}
+
+
+  .question-box {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .icon {
+    font-size: 56px;
+    line-height: 1;
+    user-select: none;
+    margin-top: 8px;
+  }
+  .question-content {
+    flex-grow: 1;
+  }
+  #question-text {
+    font-size: 1.5rem;
+    margin-bottom: 22px;
+    font-weight: 700;
+    color: #5d4037;
+  }
+  .answers button {
+    display: block;
+    width: 100%;
+    background: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 8px #503a29aa;
+  }
+  .answers button:hover, .answers button:focus {
+    background: #543927;
+    box-shadow: 0 5px 14px #3e271fcc;
+    outline: none;
+  }
+  .nav-buttons {
+    text-align: left;
+    margin-top: 10px;
+  }
+  .nav-buttons button {
+    background: #d2691e;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 25px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 10px #a0522dcc;
+    transition: background-color 0.3s ease;
+  }
+  .nav-buttons button:hover:not(:disabled) {
+    background: #a0522d;
+  }
+  .nav-buttons button:disabled {
+    opacity: 0.4;
+    cursor: default;
+    box-shadow: none;
+  }
+  .result {
+    text-align: center;
+  }
+  .result h2 {
+    font-size: 2rem;
+    color: #5d4037;
+    margin-bottom: 12px;
+  }
+  .result img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+  }
+  .result p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #6f4e37;
+    margin-bottom: 16px;
+  }
+  .result p.more {
+    font-weight: 700;
+    color: #4a342e;
+    font-style: italic;
+  }
+  .result button.learn-btn,
+  #restart-btn {
+    background: #8b4513;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 32px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    cursor: pointer;
+    margin: 10px 8px 0 8px;
+    box-shadow: 0 6px 15px #5c2a00cc;
+    transition: background-color 0.3s ease;
+  }
+  .result button.learn-btn:hover,
+  #restart-btn:hover {
+    background: #5c2a00;
+  }
+  #restart-btn {
+    background: #d2691e;
+    box-shadow: 0 6px 15px #a0522dcc;
+  }
+  #restart-btn:hover {
+    background: #a0522d;
+  }
+
+  /* موبایل ریسپانسیو */
+  @media (max-width: 520px) {
+    body {
+      padding: 12px 10px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 28px;
+    }
+    /* #quiz-container, #result {
+      padding: 20px 15px 28px 15px;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    } */
+
+     #quiz-container {
+    padding: 20px 15px 28px 15px;
+    border-radius: 12px;
+    /* box-shadow: 0 8px 18px rgba(167, 14, 14, 0.12); */
+  }
+
+    .question-box {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .icon {
+      font-size: 44px;
+      margin-top: 0;
+      align-self: center;
+    }
+    #question-text {
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+    }
+    .answers button {
+      font-size: 1rem;
+      padding: 12px 18px;
+      box-shadow: 0 3px 10px #503a29aa;
+    }
+    .nav-buttons button {
+      font-size: 1rem;
+      padding: 9px 20px;
+    }
+    .result h2 {
+      font-size: 1.6rem;
+    }
+    .result img {
+      max-width: 100%;
+      margin-bottom: 16px;
+    }
+    .result p {
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+    .result button.learn-btn,
+    #restart-btn {
+      font-size: 1rem;
+      padding: 12px 24px;
+      margin-top: 12px;
+    }
+  }
+
+  /* لگو */
+  #top-right-logo {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  background: #6f4e37;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+  user-select: none;
+}
+#top-right-logo:hover {
+  background: #543927;
+}
+
+</style>
+</head>
+<body>
+
+<h1>تست مشاوره قهوه حرفه‌ای مخصوص شما</h1>
+
+<div id="quiz-container">
+
+  <div class="question-box" id="question-box">
+    <div class="icon" title="قهوه ☕">☕</div>
+    <div class="question-content">
+      <h2 id="question-text">سوال</h2>
+      <div class="answers" id="answers"></div>
+      <div class="nav-buttons">
+        <button id="back-btn" disabled>بازگشت</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div class="result" id="result" style="display:none;">
+  <h2 id="result-title"></h2>
+  <img id="result-img" src="" alt="قهوه شما" />
+  <p id="result-desc"></p>
+  <p class="more" id="result-more"></p>
+  <button class="learn-btn" id="learn-btn">بریم آموزش را یاد بگیریم</button>
+  <button id="restart-btn">شروع مجدد</button>
+</div> -->
+
+<div id="result" style="display:none;">
+  <div class="result-box">
+    <h2 id="result-title"></h2>
+    <img id="result-img" src="" alt="قهوه شما" />
+    <p id="result-desc"></p>
+    <p class="more" id="result-more"></p>
+    <button class="learn-btn" id="learn-btn">بریم آموزش را یاد بگیریم</button>
+    <button id="restart-btn">شروع مجدد</button>
+  </div>
+</div>
+
+
+<script>
+  // سوال‌ها و گزینه‌ها (حالا 7 سوال داریم)
+  const quiz = [
+    {
+      question: "طعم مورد علاقه‌تان چیست؟",
+      answers: [
+        { text: "تلخ و قوی", type: "espresso" },
+        { text: "ملایم و شیرین", type: "latte" },
+        { text: "خنک و تازه", type: "coldbrew" },
+        { text: "شیرین و شکلاتی", type: "mocha" }
+      ]
+    },
+    {
+      question: "چقدر کافئین می‌خواهید؟",
+      answers: [
+        { text: "خیلی زیاد", type: "espresso" },
+        { text: "متوسط", type: "latte" },
+        { text: "کم", type: "mocha" },
+        { text: "خیلی کم", type: "coldbrew" }
+      ]
+    },
+    {
+      question: "آیا دوست دارید شیر یا خامه در قهوه‌تان باشد؟",
+      answers: [
+        { text: "نه، خالص باشه", type: "espresso" },
+        { text: "بله، شیر زیاد", type: "latte" },
+        { text: "کمی شیر", type: "mocha" },
+        { text: "نه، ترجیحا سرد باشه", type: "coldbrew" }
+      ]
+    },
+    {
+      question: "زمانی که قهوه می‌نوشید، بیشتر دنبال چه حس و حالی هستید؟",
+      answers: [
+        { text: "تمرکز و انرژی", type: "espresso" },
+        { text: "آرامش و لطافت", type: "latte" },
+        { text: "سرزندگی و تازگی", type: "coldbrew" },
+        { text: "لذت و شکلاتی بودن", type: "mocha" }
+      ]
+    },
+    {
+      question: "در چه زمانی معمولا قهوه می‌نوشید؟",
+      answers: [
+        { text: "صبح زود و شروع روز", type: "espresso" },
+        { text: "ظهر یا بعدازظهر", type: "latte" },
+        { text: "تابستان و هوای گرم", type: "coldbrew" },
+        { text: "بعدازظهر یا عصر", type: "mocha" }
+      ]
+    },
+    {
+      question: "ترجیحتان در شیرینی قهوه چقدر است؟",
+      answers: [
+        { text: "بدون شیرینی (تلخ)", type: "espresso" },
+        { text: "کمی شیرین", type: "mocha" },
+        { text: "ملایم و شیرین", type: "latte" },
+        { text: "شیرینی خیلی کم", type: "coldbrew" }
+      ]
+    },
+    {
+      question: "اگر بخواهید قهوه را با یک خوراکی بخورید، کدام را انتخاب می‌کنید؟",
+      answers: [
+        { text: "یک تکه شکلات تلخ", type: "espresso" },
+        { text: "کیک یا بیسکویت شیرین", type: "latte" },
+        { text: "میوه تازه یا مغزها", type: "coldbrew" },
+        { text: "دسر شکلاتی یا چیزکیک", type: "mocha" }
+      ]
+    }
+  ];
+
+  // نتایج با توضیحات بیشتر و لینک پیشنهادی
+  const resultsData = {
+    espresso: {
+      title: " قهوه اسپرسو Espresso",
+      img: "/img/21.jpg",
+      desc: "اگر طعم تلخ و قوی را دوست دارید و کافئین بالا می‌خواهید، اسپرسو بهترین انتخاب شماست.",
+      more: "اسپرسو پایه همه نوشیدنی‌های قهوه است و برای دوستداران قهوه خالص و پرکافئین عالی است. پیشنهاد می‌کنیم این قهوه را با شکلات تلخ امتحان کنید تا طعم آن کامل شود."
+    },
+    latte: {
+      title: " کافه لاته Latte",
+      img: "/img/l1.jpg",
+      desc: "اگر طعم ملایم و شیرین دوست دارید و شیر زیاد در قهوه‌تان می‌خواهید، لاته مناسب شماست.",
+      more: "لاته ترکیبی از اسپرسو و شیر بخار داده شده است که طعمی نرم و دوست‌داشتنی دارد. به شما پیشنهاد می‌کنیم با بیسکویت یا کیک سبک همراه کنید."
+    },
+    coldbrew: {
+      title: " کولد برو Cold Brew",
+      img: "/img/a6.jpg",
+      desc: "اگر قهوه سرد و تازه می‌خواهید و کافئین کم‌تر، کولد برو بهترین گزینه است.",
+      more: "کولد برو به آرامی با آب سرد تهیه می‌شود و طعمی ملایم و تازه دارد. بهترین خوراکی همراه آن میوه‌های تازه و مغزها هستند."
+    },
+    mocha: {
+      title: " موکا Caffè mocha ",
+      img: "/img/m2.jpg",
+      desc: "اگر دوست دارید قهوه‌تان شیرین و شکلاتی باشد، موکا را امتحان کنید.",
+      more: "موکا ترکیبی از اسپرسو، شیر و شکلات است که طعمی شیرین و خوشمزه ایجاد می‌کند. همراه کردن آن با چیزکیک یا دسر شکلاتی توصیه می‌شود."
+    }
+  };
+
+  let currentQuestion = 0;
+  let scores = {
+    espresso: 0,
+    latte: 0,
+    coldbrew: 0,
+    mocha: 0
+  };
+
+  const questionText = document.getElementById("question-text");
+  const answersDiv = document.getElementById("answers");
+  const resultDiv = document.getElementById("result");
+  const resultTitle = document.getElementById("result-title");
+  const resultImg = document.getElementById("result-img");
+  const resultDesc = document.getElementById("result-desc");
+  const resultMore = document.getElementById("result-more");
+  const questionBox = document.getElementById("question-box");
+  const backBtn = document.getElementById("back-btn");
+  const restartBtn = document.getElementById("restart-btn");
+  const learnBtn = document.getElementById("learn-btn");
+
+  let userSelections = [];
+
+  function showQuestion() {
+    let q = quiz[currentQuestion];
+    questionText.textContent = q.question;
+    answersDiv.innerHTML = "";
+
+    q.answers.forEach(answer => {
+      let btn = document.createElement("button");
+      btn.textContent = answer.text;
+      btn.setAttribute("aria-label", answer.text);
+      btn.onclick = () => {
+        // اگر انتخاب قبلی بود کم کن
+        if (userSelections[currentQuestion]) {
+          scores[userSelections[currentQuestion]]--;
+        }
+        // امتیاز جدید را اضافه کن
+        scores[answer.type]++;
+        userSelections[currentQuestion] = answer.type;
+
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+          showQuestion();
+        } else {
+          showResult();
+        }
+        updateNavButtons();
+      };
+      answersDiv.appendChild(btn);
+    });
+
+    questionBox.style.display = "flex";
+    resultDiv.style.display = "none";
+    restartBtn.style.display = "none";
+    backBtn.style.display = currentQuestion === 0 ? "none" : "inline-block";
+  }
+
+  function showResult() {
+    questionBox.style.display = "none";
+
+    // پیدا کردن بیشترین امتیاز
+    let maxScore = -Infinity;
+    let maxTypes = [];
+
+    for (const type in scores) {
+      if (scores[type] > maxScore) {
+        maxScore = scores[type];
+        maxTypes = [type];
+      } else if (scores[type] === maxScore) {
+        maxTypes.push(type);
+      }
+    }
+
+    // اگر چند نتیجه مساوی بود، فقط اولی را نمایش بده
+    let mainType = maxTypes[0];
+    let res = resultsData[mainType];
+
+    resultTitle.textContent = res.title;
+    resultImg.src = res.img;
+    resultDesc.textContent = res.desc;
+    resultMore.textContent = res.more;
+
+    resultDiv.style.display = "block";
+    restartBtn.style.display = "inline-block";
+    backBtn.style.display = "none";
+  }
+
+  backBtn.onclick = () => {
+    if (currentQuestion > 0) {
+      // حذف امتیاز سوال فعلی
+      if (userSelections[currentQuestion - 1]) {
+        scores[userSelections[currentQuestion - 1]]--;
+      }
+      currentQuestion--;
+      // اضافه کردن امتیاز سوال قبلی که برگشتیم
+      if (userSelections[currentQuestion]) {
+        scores[userSelections[currentQuestion]]++;
+      }
+      showQuestion();
+    }
+  };
+
+  restartBtn.onclick = () => {
+    currentQuestion = 0;
+    scores = { espresso: 0, latte: 0, coldbrew: 0, mocha: 0 };
+    userSelections = [];
+    resultDiv.style.display = "none";
+    questionBox.style.display = "flex";
+    showQuestion();
+   
+    restartBtn.style.display = "none";
+    backBtn.style.display = "none";
+  };
+
+  learnBtn.onclick = () => {
+    // لینک نمونه آموزش قهوه (می‌تونید لینک خودتون رو جایگزین کنید)
+    window.open("/searchN/search.html", "_blank");
+  };
+
+  function updateNavButtons() {
+    backBtn.disabled = currentQuestion === 0;
+  }
+
+  // شروع آزمون
+  showQuestion();
+
+</script>
+
+<!-- آیکون خانه  -->
+<!-- <a href="/Coffee/f4.html" target="_blank" id="top-right-logo" title="رفتن به سایت ما">
+  🔗
+</a> -->
+
+
+<a href="/Coffee/f4.html" target="_blank" id="top-right-logo" title="رفتن به سایت ما" style="position: fixed; top: 20px; right: 20px; z-index: 9999; text-decoration: none;">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="32" height="32" style="color: #4b2e2e;">
+    <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+  </svg>
+</a>
+
+
+<!-- اگر لوگوی تصویری می‌خوای، مثلا: -->
+<!-- <a href="https://example.com" target="_blank" id="top-right-logo" title="رفتن به سایت ما">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/120px-React-icon.svg.png" alt="لوگو" style="height: 32px; width: auto;" />
+</a>  -->
+
+
+</body>
+</html>

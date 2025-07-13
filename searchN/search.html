@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>کافه جستجو</title>
+<!-- // -->
+ <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>کافه قهوه</title>
+        <link rel="stylesheet" href="/css/style.css" />
+        <!-- فونت -->
+        <link rel="stylesheet" href="/css/all.css" />
+         <!-- آیگون در مرورگر -->
+<link rel="icon" href="/img/—Pngtree—3d isolated render of a_20787224.png" type="image/x-icon" />
+ <!-- // -->
+
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #f9f5f0;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #5c3a1e;
+      margin-bottom: 20px;
+    }
+
+    .search-wrapper {
+      position: relative;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 2px solid #d4c0a1;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background-color: #fff;
+    }
+
+    .search-results {
+      text-align: right;
+      margin-top: 5px;
+      margin-right: 10%;
+      font-size: 14px;
+      color: #6b5e52;
+    }
+
+    .no-results {
+      color: #a94442;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .drink-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .drink-card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      visibility: visible;
+      opacity: 1;
+      height: auto;
+      transform: scale(1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drink-card.hidden {
+      visibility: hidden;
+      opacity: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .drink-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .highlight {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(139, 94, 60, 0.4);
+    }
+
+    .image-wrapper {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .drink-content {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .drink-title {
+      font-size: 18px;
+      color: #5c3a1e;
+      margin-bottom: 8px;
+    }
+
+    .drink-desc {
+      font-size: 14px;
+      color: #6b5e52;
+      margin-bottom: 12px;
+    }
+
+    .detail-btn {
+      background-color: #d3aa7c;
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .detail-btn:hover {
+      background-color: #b4875f;
+    }
+  </style>
+</head>
+<body>
+
+     <!--  برای تصویر هدر header -->
+        <!-- <header class="header" id="header"> -->
+            <div class="navbar">
+                <h1>
+                    <a class="logo" href="/index.html" style="color: #5c3a1e;">
+                        <span class="fa fa-coffee"></span> کافه قهوه
+                    </a>
+                </h1>
+            </div>
+  <div class="container" id="mainContainer">
+    <h2>چی میل دارید؟</h2>
+    <div class="search-wrapper">
+      <input type="text" id="searchBox" placeholder="مثلاً: اسپرسو، نوشیدنی سرد">
+      <!-- فیلتر -->
+       <select id="categoryFilter" style="margin-top: 10px; padding: 8px 12px; border-radius: 6px; border: 1px solid #d4c0a1; background-color: #fff;">
+  <option value="">همه دسته‌ها</option>
+  <option value="گرم">گرم</option>
+  <option value="سرد">سرد</option>
+  <option value="چایی">چایی</option>
+</select>
+
+       <!-- // -->
+      <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <div id="noResults" class="no-results" style="display: none;">موردی یافت نشد ☹️</div>
+
+    <div class="drink-grid" id="drinkGrid"></div>
+  </div>
+<!-- <img src="/img/k1.jpg"> -->
+  <script>
+
+   const drinks = [
+  { title: "قهوه ترک", desc: "طعم سنتی دلچسب", img: "/img/k17.jpg", link: "menu/detail.html?drink=turkish", category: "گرم" },
+  { title: "اسپرسو", desc: "قوی و بیدارکننده", img: "/img/e6.jpg", link: "menu/detail.html?drink=espresso", category: "گرم" },
+  { title: "کلد برو", desc: "خنک و انرژی‌بخش", img: "/img/cb3.jpg", link: "menu/detail.html?drink=cold", category: "سرد" },
+  { title: "موکا", desc: "با شکلات داغ", img: "/img/m7.jpg", link: "menu/detail.html?drink=mocha", category: "گرم" },
+  { title: "کاپوچینو", desc: "با کف شیر نرم", img: "/img/c5.jpg", link: "menu/detail.html?drink=cappuccino", category: "گرم" },
+  { title: "آیس آمریکانو", desc: "تلخ و خنک", img: "/img/ia8.jpg", link: "menu/detail.html?drink=iceamericano", category: "سرد" },
+  { title: "چای ماسالا", desc: "پر ادویه و گرم", img: "/img/chm.jpg", link: "menu/detail.html?drink=masala", category: "چایی" },
+  { title: "هات چاکلت", desc: "شکلاتی و لطیف", img: "/img/hch3.jpg", link: "menu/detail.html?drink=hotchocolate", category: "گرم" },
+  { title: "لاته دارچینی", desc: "با عطر دارچین", img: "/img/ld1.jpg", link: "menu/detail.html?drink=latte", category: "گرم" },
+  { title: "فرپچینو", desc: "ترکیب یخ و قهوه", img: "/img/f7.jpg", link: "menu/detail.html?drink=frappuccino", category: "سرد" },
+  { title: "آیس تی لیمویی", desc: "ملایم و ترش", img: "/img/il.jpg", link: "menu/detail.html?drink=icetea", category: "سرد" },
+  { title: "چای سبز", desc: "طبیعی و آرام‌بخش", img: "/img/gt.jpg", link: "menu/detail.html?drink=greentea", category: "چایی" },
+  { title: "آفوگاتو", desc: "قهوه و بستنی", img: "/img/af3.jpg", link: "menu/detail.html?drink=affogato", category: "سرد" },
+  { title: "آیس لاته", desc: "شیر و قهوه سرد", img: "/img/ilt.jpg", link: "menu/detail.html?drink=icelatte", category: "سرد" },
+  { title: "ماکیاتو", desc: "لایه‌ای از قهوه", img: "/img/mk.webp", link: "menu/detail.html?drink=macchiato", category: "گرم" },
+  { title: "کورتادو", desc: "قهوه با شیر کم", img: "/img/ko8.jpg", link: "menu/detail.html?drink=cortado", category: "گرم" },
+
+  // نوشیدنی‌های جدید
+  { title: "میلک‌شیک شکلاتی", desc: "شیر و بستنی شکلاتی", img: "/img/mish.jpg", link: "menu/detail.html?drink=milkshake", category: "سرد" },
+  { title: "آمریکانو", desc: "قهوه تلخ کلاسیک", img: "/img/am3.jpg", link: "menu/detail.html?drink=americano", category: "گرم" },
+  { title: "چای ترش", desc: "طعم ترش و متفاوت", img: "/img/cht4.jpg", link: "menu/detail.html?drink=hibiscus", category: "چایی" }
+
+
+];
+
+    const grid = document.getElementById("drinkGrid");
+    const searchBox = document.getElementById("searchBox");
+    const searchResults = document.getElementById("searchResults");
+    const noResults = document.getElementById("noResults");
+
+function renderDrinks(filter = "") {
+  grid.innerHTML = "";
+  let found = false;
+  let matchedNames = [];
+  const selectedCategory = document.getElementById("categoryFilter").value;
+
+  drinks.forEach(drink => {
+    const matchText = filter === "" || drink.title.startsWith(filter);
+    const matchCategory = selectedCategory === "" || drink.category === selectedCategory;
+
+    if (matchText && matchCategory) {
+      found = true;
+      matchedNames.push(drink.title);
+      const card = document.createElement("div");
+      card.className = "drink-card";
+      card.innerHTML = `
+        <div class="image-wrapper">
+          <img src="${drink.img}" alt="${drink.title}">
+        </div>
+        <div class="drink-content">
+          <div class="drink-title">${drink.title}</div>
+          <div class="drink-desc">${drink.desc}</div>
+          <button class="detail-btn" onclick="location.href='${drink.link}'">مشاهده جزئیات</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    }
+  });
+
+  if (!found && filter !== "") {
+    noResults.style.display = "block";
+    searchResults.textContent = "";
+  } else {
+    noResults.style.display = "none";
+    searchResults.textContent = matchedNames.length > 0 ? `نتیجه: ${matchedNames.join("، ")}` : "";
+  }
+}
+
+
+    searchBox.addEventListener("input", () => renderDrinks(searchBox.value.trim()));
+    renderDrinks();
+
+    document.getElementById("categoryFilter").addEventListener("change", () => renderDrinks(searchBox.value.trim()));
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>کافه قهوه</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- فونت -->
+    <link rel="stylesheet" href="css/all.css" />
+    <!-- آیگون در مرورگر -->
+<link rel="icon" href="/img/—Pngtree—3d isolated render of a_20787224.png" type="image/x-icon" />
+
+</head>
+
+<body>
+    <!--  برای تصویر هدر header -->
+    <header class="header" id="header">
+        <div class="navbar">
+            <h1>
+                <a class="logo" href="index.html">
+                    <span class="fa fa-coffee"></span> کافه قهوه
+                </a>
+            </h1>
+            <!-- // -->
+            <!-- دکمه منو فقط در موبایل -->
+            <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+
+            <!-- // -->
+
+            <!-- منو یا فهرست -->
+            <ul class="nav">
+                <li class="nav__item"><a class="nav__link" href="#about">درباره ما</a></li>
+                <li class="nav__item">
+                    <a class="nav__link nav__link--active" href="#products">جهان قهوه</a></li>
+                <li class="nav__item"><a class="nav__link" href="/searchN/search.html">مکتب قهوه</a></li>
+
+                <li class="nav__item"><a class="nav__link" href="/Chat/Final.html">تماس با ما</a></li>
+
+            </ul>
+
+        </div>
+        <div class="header__text">
+            <!-- row این کلاس برای اینکه نوشته در هدر اصلی از کناره ها فاصله بگیرد -->
+            <div class="row">
+                <h5>در هر فنجان، داستانی هست...آماده‌ای کشف کنی؟</h5>
+                <p class="text">
+                    قهوه را بشناس، درستش کن، عاشقش شو.
+                </p>
+                <!-- <a class="btn" href="#about">بیشتر بدانیم</a> -->
+            </div>
+        </div>
+    </header>
+    <!-- بخش هدر تمام -->
+
+    <!-- main -->
+    <!--  اینجا ایمج و آرتیکال باهم خواهر و برادر هستند و کلاس والدشون رو هست -->
+    <section class="main">
+        <div class="row">
+            <div class="article" id="about">
+                <span>بهترین برای شما</span>
+                <h3 class="title-big">ما که هستیم</h3>
+                <p class="article__text">
+                    <b>"قهوه مناسب شما کدام است؟ <br>آشنایی با دانه‌ها، مزایا، هشدارها"</b>
+                    <br>
+                    قبل از نوشیدن هر فنجان، بدون که بدنت چی نیاز داره و کدوم دانه بهت می‌سازه
+                    <br>
+                    همه قهوه‌ها خوب نیستن، مگر اینکه تو دونه مناسب خودت رو پیدا کنی... بیا کشف کنیم
+
+                </p>
+                <!-- دکمه -->
+                <!-- <a href="#about" class="btn">بیشتر بدانیم</a> -->
+                <a href="Coffee/f4.html" class="btn">بیشتر بدانیم</a>
+
+            </div>
+            <!-- تصاویر بخش دوم -->
+            <div class="images">
+                <div class="row">
+                    <img src="img/a4.jpg" alt="" class="img" />
+                    <img src="img/a3.jpg" alt="" class="img" />
+                    <img src="img/a13.jpg" alt="" class="img" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تفاوت قهوه ها -->
+    <!-- <section class="intro">
+        <div class="row">
+            <img src="img/b.jpg" alt="" width="300" height="300" class="intro__img1" style="border-radius: 50px;" />
+            <h3 class="title-big" id="intro">تفاوت</h3>
+            <p>
+                <strong>برزیل، ویتنام و کلمبیا</strong>
+                سه غول قهوه‌ای جهان هستند که روزانه میلیون‌ها کیلو دانه قهوه از مزارع گرمسیری‌شان
+                راهی فنجان‌های سراسر دنیا می‌شود
+            </p> -->
+    <!-- courseبرای آیکون ها و نوشته هایی که دارم به دکمه داخلش میخواد ایجاد کنم کلاس -->
+    <!-- <div class="course"> -->
+    <!-- <a href="about.html" class="btn">بیشتر بدانیم</a> -->
+    <!-- آیگون هارو ایجاد و داخلش سه تا آیتم داریم -->
+    <!-- این آیکون های لایک و قلب و تاریخ -->
+    <!-- .meta-item*3>span*2 -->
+    <!-- <div class="course-meta">
+                    <div class="meta-item">
+                        <span class="fa fa-heart"></span> <span class="mata-value">24</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="fa fa-eye"></span> <span class="meta-value">125</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="fa fa-calendar"></span>
+                        <span class="meta-value">2025.8.12</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section> -->
+
+    <!-- تفاوت قهوه ها -->
+    <section class="intro">
+        <div class="row">
+            <img src="/img/bo1.jpg" alt="" width="300" height="300" class="intro__img1"
+                style="border-radius: 50px; cursor: pointer;" onclick="openModal()" />
+            <h3 class="title-big" id="intro">اولین فنجان قهوه جهان از کجا آمد؟</h3>
+            <p>
+                <strong>همه چیز از یک بز شروع شد!</strong>
+                <br>
+                حدود هزار سال پیش، در کوه‌های سبز اتیوپی، چوپانی به نام کالدی (Kaldi) متوجه شد بزهایش رفتاری عجیب دارند.
+                آن‌ها پس از خوردن میوه‌های قرمز و براق یک بوته ناشناخته، پرانرژی و پرشور می‌دویدند و نمی‌توانستند آرام
+                بگیرند.
+                <br>
+                کالدی کنجکاو شد. خودش هم از آن دانه‌ها خورد… و ناگهان احساس هوشیاری، تمرکز و نشاطی بی‌سابقه کرد.
+                <br>
+                او دانه‌ها را با خود نزد راهبان صومعه برد. راهبان ابتدا آن‌ها را سوزاندند، اما رایحه‌ی دودی و دلپذیر
+                آن‌قدر فریبنده بود که دانه‌ها را در آب ریختند تا ببینند چه می‌شود...
+                <br>
+                نتیجه؟
+                <br>
+                اولین فنجان قهوه‌ی دم‌شده‌ی جهان تولد یافت!
+                <br>
+                <small>
+                    این داستان، افسانه‌ای محبوب در تاریخ قهوه است که هنوز در بسیاری از کافه‌ها و موزه‌های قهوه روایت
+                    می‌شود.
+                    <br>
+                    واژه‌ی «قهوه» از واژه عربی "قَهوَه" گرفته شده و به مرور وارد زبان‌های دیگر شد.
+                    <br>
+                    اتیوپی هنوز هم یکی از اصیل‌ترین و محبوب‌ترین مناطق تولید قهوه دنیاست؛ جایی که قهوه نه فقط یک
+                    نوشیدنی، بلکه بخشی از فرهنگ و آیین زندگی‌ست.
+                </small>
+
+            </p>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="imgModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); z-index: 9999; justify-content: center; align-items: center;">
+        <span onclick="closeModal()"
+            style="position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
+        <img src="/img/o.jpg" alt="تصویر جدید" style="max-width: 90%; max-height: 80%; border-radius: 20px;" />
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('imgModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('imgModal').style.display = 'none';
+        }
+    </script>
+
+
+
+
+    <!-- // -->
+    <!-- products محصولات  -->
+    <section class="products" id="products">
+        <!-- از کلاس رو استفاده میکنم که تمام عناصرما در وسط صفحه قرار گیرد -->
+        <div class="row">
+            <h5 class="title-small">با فنجان قهوه، دنیا را بشناس</h5>
+            <h3 class="title-big">جهان قهوه</h3>
+            <!-- .product__item*3>img+.product__text>h3.title-big-->
+            <div class="product__item">
+                <img src="img/ne1.jpeg" class="product__img" alt="" />
+                <div class="product__text">
+                    <h3 class="title-big">اتیوپی</h3>
+                    <h4 class="title-small">زادگاه قهوه</h4>
+                    <p>زادگاه قهوه، با طعم‌هایی گُلی، میوه‌ای و وحشی. هر جرعه، سفری به اعماق تاریخ و طبیعت</p>
+                </div>
+            </div>
+            <div class="product__item">
+                <img src="img/nc1.jpg" class="product__img" alt="" />
+                <div class="product__text">
+                    <h3 class="title-big">کلیمبا</h3>
+                    <h4 class="title-small">طعم متعادل کوهستان</h4>
+
+                    <p>از کوه‌های مه‌آلود آند، قهوه‌ای با رایحه‌ای ملایم و طعمی دلپذیر می‌رسد؛ دوست‌داشتنی برای همه</p>
+                </div>
+            </div>
+            <div class="product__item">
+                <img src="img/nb5.jpg" class="product__img" alt="" />
+                <div class="product__text">
+                    <h3 class="title-big">برزیل</h3>
+                    <h4 class="title-small">غول قهوه دنیا</h4>
+                    <p>سرزمینی که رایحه شکلات و مغزها را در فنجان شما می‌ریزد. طعمی کلاسیک، آرام</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- معرفی محصولاتintro -->
+    <section class="intro">
+        <div class="row">
+            <img src="img/b3.jpg" alt="" width="300" height="300" class="intro__img1" />
+            <h3 class="title-big" id="intro">صادرات</h3>
+            <p>
+                <strong>برزیل، ویتنام و کلمبیا</strong>
+                سه غول قهوه‌ای جهان هستند که روزانه میلیون‌ها کیلو دانه قهوه از مزارع گرمسیری‌شان
+                راهی فنجان‌های سراسر دنیا می‌شود
+            </p>
+            <!-- courseبرای آیکون ها و نوشته هایی که دارم به دکمه داخلش میخواد ایجاد کنم کلاس -->
+            <div class="course">
+                <!-- <a href="about.html" class="btn">بیشتر بدانیم</a> -->
+                <!-- آیگون هارو ایجاد و داخلش سه تا آیتم داریم -->
+                <!-- این آیکون های لایک و قلب و تاریخ -->
+                <!-- .meta-item*3>span*2 -->
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <span class="fa fa-heart"></span> <span class="mata-value">24</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="fa fa-eye"></span> <span class="meta-value">125</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="fa fa-calendar"></span>
+                        <span class="meta-value">2025.8.12</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <img src="img/b4.jpg" width="300" height="300" alt="" class="intro__img2" />
+            <h3 class="title-big">واردات</h3>
+            <p>
+                <strong>آمریکا بزرگ‌ترین مصرف‌کننده دنیا!</strong>
+                در آمریکا، صبح بدون قهوه شروع نمی‌شود
+                <br>
+                <strong> آلمان عاشق قهوه با کیفیت!</strong>
+                دانه‌های خوب، راهی اروپا از طریق آلمان می‌شوند
+                <br>
+                <strong>ژاپن شیفته جزئیات در طعم و دم‌آوری!</strong>
+                قهوه برای ژاپنی‌ها یک هنر است، نه فقط نوشیدنی </p>
+            <div class="course">
+                <!-- <a class="btn" href="about.html"> بیشتر بدانیم</a> -->
+                <div class="course-meta">
+                    <div class="meta-item ">
+                        <span class="fa fa-heart"></span>
+                        <span class="meta-value"> 24 </span>
+                    </div>
+                    <div class="meta-item ">
+                        <span class="fa fa-eye"></span>
+                        <span class="meta-value"> 125 </span>
+                    </div>
+                    <div class="meta-item ">
+                        <span class="fa fa-calendar"></span>
+                        <span class="meta-value"> 2025.8.12 </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer__arrowup">
+            <a class="footer__arrowlink" href="#header">&xutri;</a>
+        </div>
+        <!-- <form class="footer__subscribe" action="#" id="contact">
+            <input class="footer__input" type="text" placeholder="لطفا ایمیل خود را وارد نمایید">
+            <button class="footer__btn">ارسال</button>
+        </form> -->
+        <ul class="footer__lists">
+            <li class="footer__list">
+                <a class="footer__link" target="_blank" href="https://www.youtube.com/@code.amoz2024">ورود به یوتیوب</a>
+            </li>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <li class="footer__list">
+                <a class="footer__link" target="_blank" href="https://www.instagram.com/@code.amoz2024">ورود به
+                    اینستاگرام</a>
+            </li>
+        </ul>
+        <p class="footer__copyright">
+            2024 &copy; تمامی حقوق وب سایت متعلق به <a class="footer__link footer__link--copy" target="_blank"
+                href="https://cafeshop.com">کافه قهوه </a>است
+        </p>
+    </footer>
+
+
+    <!-- // -->
+
+    <!-- موبایل -->
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.nav');
+            nav.classList.toggle('show');
+        }
+    </script>
+    <!-- موبایل 2 رد کردن منو با ضربه زدن -->
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.nav');
+            nav.classList.toggle('show');
+
+            // وقتی منو باز شد، یک‌بار منتظر کلیک بیرون آن می‌مانیم
+            if (nav.classList.contains('show')) {
+                // با یک تأخیر کوتاه تا خود دکمه کلیک باعث بسته‌شدن نشود
+                setTimeout(() => {
+                    document.addEventListener('click', outsideClickHandler);
+                }, 50);
+            }
+        }
+
+        function outsideClickHandler(e) {
+            const nav = document.querySelector('.nav');
+            const toggle = document.querySelector('.menu-toggle');
+
+            // اگر روی خود منو یا دکمه کلیک شد، کاری نکن
+            if (nav.contains(e.target) || toggle.contains(e.target)) return;
+
+            // اگر جای دیگه کلیک شد، منو رو ببند و لیسنر رو حذف کن
+            nav.classList.remove('show');
+            document.removeEventListener('click', outsideClickHandler);
+        }
+    </script>
+
+
+</body>
+
+</html>

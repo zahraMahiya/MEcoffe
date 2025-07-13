@@ -1,0 +1,818 @@
+html {
+  scroll-behavior: smooth;
+}
+
+/* varibale */
+:root{
+    /* برای اینکه رنگ هامون یک دست باشه با استفاده از 
+    (var)اسم رنگ هارو صدا میزنیم*/
+    --color-orange:#ce6d06;
+    --color-white:#fff;
+    --color-header:#3f3a64;
+}
+/* fonts */
+/*  اول ساختار رو مینویسیم بعد اسم فونت خریدار شده رو جلوی فونت فمیلی اضافه میکنیم و از خصوصیت اس آر اس و تابع یو ال برای آدرس دهی استفاده میکنیم */
+@font-face {
+    font-family: "yekan";
+    src: url("../fonts/eot/BYekan.eot");
+    src: url("../fonts/eot/BYekan.eot?#iefix") format("embedded-opentype"), url("../fonts/woff2/BYekan.woff2") format("woff2"),
+        url("../fonts/woff/BYekan.woff") format("woff"), url("../fonts/ttf/BYekan.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "vazir";
+    src: url("../fonts/eot/Vazir-Medium.eot");
+    src: url("../fonts/eot/Vazir-Medium.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/woff2/Vazir-Medium.woff2") format("woff2"), url("../fonts/woff/Vazir-Medium.woff") format("woff"),
+        url("../fonts/ttf/Vazir-Medium.ttf") format("truetype");
+  }
+/* reset این برای اینکه برای همه عناصر ایجاد قالب دور عکس را از بین میبره */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* global setting */
+/* عناصر والد به عناصر فرزند ارث داده مسشه پس ما اگر بیاییم بادی را انتخاب کنیم و به بادی این ویژگی فونت رو بدهیم به عناصر فرزند منتقل میشود */
+body{
+    font-family:"yekan", 'Times New Roman', Times, serif;
+    color: #61666b;
+}
+/* خط زیر لگو حذف میکنیم */
+a{
+    text-decoration: none;
+}
+/* اگر ای یا پ بود بیا فونت فمیلی رو این قرار بده */
+a,p{
+    /* اول وزیر اگه نبود یکان اگه پیدا نکردی تاهوما در غیر این صورت آریل که همه کاراکتر ها را در خودش جا میدهد */
+    font-family: "vazir","yekan",tahoma,arial;
+}
+/* برای تنظیم فاصله متن اصلی از بدنه صفحه */
+.row{
+max-width: 1020px;
+margin: 0 auto;
+padding: 30px;
+/* overflow: auto;  برای اینکه اون بخش دوم با بخش اصلی فاصله بگیرند یجور حالت استاندارد */
+/* display: flow-root; پیام بالا*/
+}
+/* این برای کلیر فیکس هست که فاصله بین بخش ها رعایت بشه بهم نچسبنchear fix */
+.row::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+/* ماکه هستیم  */
+.title-big{
+    color: var(--color-header);
+    margin-bottom: 10px;
+    font-size: 38px;
+    line-height: 45px;
+    font-weight: 700;
+}
+/* تایتل بیگ را قبلا ایجاد کردیم الان اینو استفاده میکینیم در بجش سوم */
+.title-small{
+    font-size: 14px;
+    font-weight: 600;
+    /* text-transform: uppercase; برای حروف انگلیسی هست که بزرگ میکنه*/
+    /* لاین هایت ارتفاع خطوط را مشخص میکنه */
+    line-height: 30px;
+    /* برای حروف انگلیسی فاصله بین کلمات */
+    letter-spacing: 1px;
+    color: #7e7d7d;
+    display: block;
+}
+/*اول در اینجا برای تصویر اصلی هدر ایمیج رو قرار میدهم و با استفاده از تگ دیو فراخوانی میشه header */
+.header{
+    position: relative;
+    /* خلاصه کد پایین  تصویر وسط-درصورت کوچک شدن تکراری نشه و رنگ زمینه */
+    /* background-position: center;
+    background-repeat: no-repeat;
+    background-color: antiquewhite; */
+    background: url(../img/2.jpg) #fff center no-repeat;   
+    background-size: cover;
+    width: 100%;
+    height: 900px;
+    /* direction: ltr; */
+    direction: rtl;
+    text-align: center;
+}
+/* برای لگو */
+.logo{
+    position: absolute;
+    top: 5%;
+    left: 3%;
+    color: var(--color-white);
+}
+/*لگو رنگش */
+.logo span{
+    color: var(--color-orange);
+}
+/* منو */
+.nav{
+    list-style: none;
+    padding-top: 50px;
+    
+}
+.nav__item{
+    display: inline-block;
+}
+.nav__link{
+    text-decoration: none;
+    padding: 10px;
+    color: var(--color-white);
+}
+/* برای انتخاب رنگ از کلاس و هاور استفاده میکنیم */
+.nav__link:hover{
+    color: var(--color-orange);
+}
+/*  کلمه محصولات همیشه به رنگ نارنجی باقی بماند   */
+.nav__link--active{
+    color: orange;
+}
+/* متن موجود در هدر .منو اصلی */
+.header__text{
+    width: 50%;
+    padding-top: 250px;
+    /* text-align: left; */
+    text-align: right;
+    color: var(--color-white);
+}
+/* متن موجود در منو اصلی بهش استایل میدهیم */
+.header__text h5{
+    font-size: 40px;
+    font-weight: 600;
+    color: #fff;
+}
+/* متن دکمهاصلی */
+.text{
+    font-size: 18px;
+    line-height: 2;
+    color: #fff;
+    /* مقدار شفافیت نوشته را مشخص میکند یعنی کمی از سفیدی کمتر باشد */
+    opacity: .8;
+    /* این پایین 35 پیسکل با دکمه فاصله داشته باشد */
+    margin-bottom: 35px;
+}
+/* دکمه  */
+.btn{
+    background-color: #ce6d06;
+    border: 2px solid #ce6d06;
+    color: white;
+    padding: 9px 40px;
+    font-size: 20px;
+    letter-spacing: .5px;
+    border-radius: 50px;
+    transition: all .5s ease-in;
+}
+/* main بخش دوم سایت*/
+.article{
+    width: 30%;
+    float: left;
+    padding-top: 40px;
+
+}
+/* متن بخش دوم سایت */
+.article__text{
+    margin-bottom: 20px;
+    line-height: 2;
+}
+/* سه تصویر بخش دوم */
+.images{
+    /* هرچقدر مرورگر کوچک شود باکس تغییری نمیکند */
+    width: 70%;
+    float: right;
+}
+.img{
+    width: 30%;
+    margin: 5px;
+}
+/* products  محصولات*/
+.products{
+   
+    text-align: center;
+}
+.product__item{
+    /* کنار هم */
+    display: inline-block;
+    width: 33%;
+    overflow: hidden;
+}
+.product__img{
+    width: 100%;
+    /* از تیزی لبه ها کم بشه */
+    border-radius: 26px;
+    padding: 15px;
+}
+/* intro معرفی محصولات */
+.intro{
+    margin-top: 20px;
+    padding: 50px 0;
+
+}
+.intro p{
+    line-height: 2;
+    margin-bottom: 50px;
+}
+.intro__img1{
+    float: left;
+    margin-right: 20px;
+}
+.intro__img2{
+    float: right;
+    margin-left: 20px;
+
+}
+/* آیکون های ریز */
+.course-meta{
+    display: inline-block;
+    padding-left: 20px;
+}
+/* به متا آیکون ها */
+.meta-item{
+    color: var(--color-orange);
+    display: inline-block;
+    padding: 9px;
+
+}
+/* اعداد آیکون */
+.meta-value{
+    color: #7e7d7d;
+}
+
+/* footer  قسمت آخر*/
+.footer {
+    position: relative;
+    background-color: #362d27;
+    text-align: center;
+    padding: 80px;
+  }
+  /* علامت فلش رو به بالا */
+  .footer__arrowup {
+    position: absolute;
+    top: -28px;
+    right: 50%;
+    width: 60px;
+    height: 60px;
+    background-color: #707070;
+    border-radius: 50%;
+    /* فقط ماوس رو قرار میگیرید کاراکتر ما تبدیل به دست میشود */
+    cursor: pointer;
+  }
+  /* ادامه دکمه بالا رو خود دکمه را بهش استایل میدیم */
+  .footer__arrowlink {
+    position: relative;
+    top: 2px;
+    margin-top: 100px;
+    font-size: 35px;
+    text-decoration: none;
+    color: var(--color-orange);
+    transition: all 0.5s;
+  }
+  /* وقتی ماوس روی دکمه میاد با یه افکتی رنگش تغییر میکند */
+  .footer__arrowlink:hover {
+    color: var(--color-lightgray);
+  }
+  /* ... */
+  .footer__lists {
+    list-style: none;
+  }
+  .footer__list {
+    display: inline-block;
+  }
+  .footer__link {
+    color: #a18c7f;
+    transition: all 0.2s;
+    padding: 20px;
+  }
+  .footer__link:hover {
+    color: white;
+  }
+  .footer__copyright {
+    margin-top: 10px;
+    color: #cccccc;
+  }
+  .footer__link--copy {
+    padding-right: 5px;
+  }
+  /* Footer subscribe  */
+  .footer__subscribe {
+    position: relative;
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  .footer__input{
+    background: none;
+    display: block;
+    color: #aaaaaa;
+    width: 100%;
+    height: 50px;
+    padding: 6px 12px;
+    border: 1px solid #727272;
+    border-radius: 3px;
+    direction: ltr;
+  }
+  .footer__btn {
+    font-family: "vazir", "yekan", tahoma, arial;
+    background: #ce6d06;
+    position: absolute;
+    height: 50px;
+    width: 80px;
+    top: 0;
+    right: 0;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    color: white;
+  }
+  .footer__input:focus {
+    outline: 0;
+  }
+  .footer__btn:hover {
+    background-color:#ea8110;
+  }
+
+
+  
+  
+  /* موبابل */
+  @media (max-width: 768px) {
+  .row {
+    padding: 15px;
+  }
+
+  .header {
+    height: auto;
+    padding-bottom: 40px;
+  }
+
+  .logo {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 24px;
+    display: block;
+    margin: 20px auto 0;
+  }
+
+  .nav {
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .nav__item {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .header__text {
+    width: 100%;
+    padding-top: 100px;
+  }
+
+  .header__text h5 {
+    font-size: 32px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  .main .article,
+  .main .images {
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+
+  .img {
+    width: 90%;
+    margin: 10px auto;
+    display: block;
+  }
+
+  .product__item {
+    width: 100%;
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .intro img {
+    width: 100% !important;
+    height: auto !important;
+    float: none !important;
+    margin: 0 auto 20px;
+    display: block;
+  }
+
+  .footer {
+    padding: 40px 15px;
+  }
+
+  .footer__arrowup {
+    right: 10px;
+  }
+
+  .footer__input {
+    height: 45px;
+  }
+
+  .footer__btn {
+    height: 45px;
+    width: 70px;
+  }
+
+  .footer__lists {
+    padding: 0;
+  }
+
+  .footer__list {
+    display: block;
+    margin: 10px 0;
+  }
+} 
+
+/* موبایل2 سه خط منو */
+/* دکمه منو در موبایل */
+ .menu-toggle {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  z-index: 999;
+}
+
+/* حالت موبایل */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    z-index: 998;
+  }
+
+  .nav__item {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav.show {
+    display: flex;
+  }
+}
+
+/* موبایل 3 تغییر فونت */
+@media (max-width: 768px) {
+  /* فونت‌های عمومی */
+  body, a, p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .title-big {
+    font-size: 24px;
+    line-height: 1.5;
+  }
+
+  .title-small {
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .header__text {
+    padding-top: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+  }
+
+  .header__text h5 {
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+  }
+
+  .btn {
+    padding: 8px 30px;
+    font-size: 16px;
+    border-radius: 40px;
+  }
+
+  .product__text p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .product__text h3.title-big {
+    font-size: 20px;
+  }
+
+  .product__text h4.title-small {
+    font-size: 13px;
+  }
+
+  .intro p {
+    font-size: 14px;
+    line-height: 1.8;
+    padding: 0 10px;
+  }
+
+  .footer__link {
+    font-size: 14px;
+  }
+
+  .footer__copyright {
+    font-size: 13px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .nav__link {
+    font-size: 15px;
+  }
+}
+
+
+/* موبایل3 تصاویر متناسب با آن کوچک شود */
+
+@media (max-width: 768px) {
+  /* فقط تصاویر کنار متن واکنش‌گرا */
+  .intro__img1, .intro__img2, .product__img, .img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+  }
+
+  /* جلوگیری از بهم‌ریختگی چیدمان در موبایل */
+  .intro .row,
+  .products .row,
+  .main .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* تصاویر داخل article (مثلاً سمت چپ) */
+  .article,
+  .images {
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+
+  .article__text {
+    padding: 0 15px;
+  }
+
+  .product__item {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .product__text {
+    padding: 0 15px;
+  }
+
+  /* جلوگیری از بزرگ‌شدن بیش از حد محتوا */
+  body, p, a {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .title-big {
+    font-size: 22px;
+    line-height: 1.5;
+  }
+
+  .title-small {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* دکمه‌ها */
+  .btn {
+    font-size: 15px;
+    padding: 8px 25px;
+    border-radius: 40px;
+  }
+
+  /* لوگو */
+  .logo {
+    font-size: 20px;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+
+  /* منو سه‌خطی */
+  .menu-toggle {
+    display: block;
+    font-size: 26px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    z-index: 999;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    z-index: 998;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .nav.show {
+    display: flex !important;
+  }
+
+  .nav__item {
+    margin: 10px 0;
+  }
+
+  .nav__link {
+    font-size: 15px;
+  }
+
+  /* فوتر مرتب */
+  .footer {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .footer__link,
+  .footer__copyright {
+    font-size: 13px;
+  }
+}
+@media (max-width: 768px) {
+  /* فقط تصاویر کنار متن واکنش‌گرا */
+  .intro__img1, .intro__img2, .product__img, .img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+  }
+
+  /* جلوگیری از بهم‌ریختگی چیدمان در موبایل */
+  .intro .row,
+  .products .row,
+  .main .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* تصاویر داخل article (مثلاً سمت چپ) */
+  .article,
+  .images {
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+
+  .article__text {
+    padding: 0 15px;
+  }
+
+  .product__item {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .product__text {
+    padding: 0 15px;
+  }
+
+  /* جلوگیری از بزرگ‌شدن بیش از حد محتوا */
+  body, p, a {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .title-big {
+    font-size: 22px;
+    line-height: 1.5;
+  }
+
+  .title-small {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* دکمه‌ها */
+  .btn {
+    font-size: 15px;
+    padding: 8px 25px;
+    border-radius: 40px;
+  }
+
+  /* لوگو */
+  .logo {
+    font-size: 20px;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+
+  /* منو سه‌خطی */
+  .menu-toggle {
+    display: block;
+    font-size: 26px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    z-index: 999;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    z-index: 998;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .nav.show {
+    display: flex !important;
+  }
+
+  .nav__item {
+    margin: 10px 0;
+  }
+
+  .nav__link {
+    font-size: 15px;
+  }
+
+  /* فوتر مرتب */
+  .footer {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .footer__link,
+  .footer__copyright {
+    font-size: 13px;
+  }
+}
+
+/* // کنارهم باشد در اپ موبایل تصاویر */
+@media (max-width: 768px) {
+  .images .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 10px 0;
+    flex-wrap: nowrap; /* تصاویر نپیچند */
+  }
+
+  .img {
+    width: 30%;
+    max-width: 100px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+}
+
